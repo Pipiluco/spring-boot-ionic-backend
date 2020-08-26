@@ -20,6 +20,7 @@ import life.pifrans.cursomc.domain.PagamentoComCartao;
 import life.pifrans.cursomc.domain.Pedido;
 import life.pifrans.cursomc.domain.Produto;
 import life.pifrans.cursomc.domain.enums.EstadoPagamento;
+import life.pifrans.cursomc.domain.enums.Perfil;
 import life.pifrans.cursomc.domain.enums.TipoCliente;
 import life.pifrans.cursomc.repositories.CategoriaRepository;
 import life.pifrans.cursomc.repositories.CidadeRepository;
@@ -117,16 +118,21 @@ public class DBService {
 
 		//
 		Cliente cli1 = new Cliente(null, "Tibío Capetei", "lucasf.silva@live.com", "01287254442", TipoCliente.PESSOAFISICA, encoder.encode("111"));
-
 		cli1.getTelefones().addAll(Arrays.asList("54258855", "42455599"));
+		
+		Cliente cli2 = new Cliente(null, "Tubaina Capetei", "motogxt103316gb@gmail.com", "85054837078", TipoCliente.PESSOAFISICA, encoder.encode("111"));
+		cli2.getTelefones().addAll(Arrays.asList("23329073", "63529239"));
+		cli2.addPerfil(Perfil.ADMIN);
 
 		Endereco e1 = new Endereco(null, "Rua da lata", 44, "Casinha", "Tambor", "89025511", cli1, cid1);
 		Endereco e2 = new Endereco(null, "Rua da grama", 234, "Casinha", "Tonel", "89045566", cli1, cid2);
+		Endereco e3 = new Endereco(null, "Rua do motoboy", 23, "Casinha", "Tonel", "89521122", cli2, cid2);
 
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		cli2.getEnderecos().addAll(Arrays.asList(e3));
 
-		clienteRepository.saveAll(Arrays.asList(cli1));
-		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3));
 
 		//
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
