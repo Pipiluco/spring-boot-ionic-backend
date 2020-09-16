@@ -27,14 +27,14 @@ public class CategoriaService {
 	}
 
 	public Categoria insert(Categoria obj) {
+		obj.setId(null);
+		return repository.save(obj);
+	}
+	
+	public Categoria update(Categoria obj) {
 		Categoria newObj = find(obj.getId());
 		updateData(newObj, obj);
 		return repository.save(newObj);
-	}
-
-	public Categoria update(Categoria obj) {
-		find(obj.getId());
-		return repository.save(obj);
 	}
 
 	public void delete(Integer id) {
