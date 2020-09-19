@@ -16,6 +16,8 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
+import life.pifrans.cursomc.services.exceptions.FileException;
+
 @Service
 public class S3Service {
 	private Logger LOG = LoggerFactory.getLogger(S3Service.class);
@@ -34,7 +36,7 @@ public class S3Service {
 			String contentType = multipartFile.getContentType();
 			return uploadFile(inputStream, fileName, contentType);
 		} catch (IOException e) {
-			throw new RuntimeException("Erro de IO: " + e.getMessage());
+			throw new FileException("Erro de IO: " + e.getMessage());
 		}
 	}
 
@@ -48,7 +50,7 @@ public class S3Service {
 			return s3client.getUrl(bucket, fileName).toURI();
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
-			throw new RuntimeException("Erro ao converter URL para URI!");
+			throw new FileException("Erro ao converter URL para URI!");
 		}
 	}
 }
